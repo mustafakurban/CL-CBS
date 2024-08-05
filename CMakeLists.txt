@@ -9,6 +9,10 @@ pkg_check_modules(YamlCpp yaml-cpp)
 ## OPEN MOTION PLANNING LIBRARY
 find_package(ompl REQUIRED)
 
+if(NOT OMPL_FOUND)
+    message(AUTHOR_WARNING,"Open Motion Planning Library not found")
+endif(NOT OMPL_FOUND)
+
 # check if Doxygen is installed
 find_package(Doxygen)
 
@@ -74,7 +78,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include_directories(
   include
-  ${ompl_INCLUDE_DIRS}
+  ${OMPL_INCLUDE_DIRS}
 )
 
 # Examples
@@ -86,7 +90,7 @@ add_executable(SH_Astar
 )
 target_link_libraries(SH_Astar
   ${Boost_LIBRARIES}
-  ${ompl_LIBRARIES}
+  ${OMPL_LIBRARIES}
 )
 
 ## CL-CBS
@@ -95,7 +99,7 @@ add_executable(CL-CBS
 )
 target_link_libraries(CL-CBS
   ${Boost_LIBRARIES}
-  ${ompl_LIBRARIES}
+  ${OMPL_LIBRARIES}
   yaml-cpp
 )
 
